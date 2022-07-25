@@ -1,12 +1,14 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:restapp_automa/models/category.dart';
 
 class CategoryItemWidget extends StatelessWidget {
-  final String imageCategory;
-  final String nameCategory;
-  final int kindsCategory;
+  // final String imageCategory;
+  // final String nameCategory;
+  // final int kindsCategory;
+  final CategoryModel category;
 
-  const CategoryItemWidget( { Key? key, required this.imageCategory,
-    required this.nameCategory, required this.kindsCategory}) : super(key: key);
+  const CategoryItemWidget( { Key? key, required this.category}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +26,12 @@ class CategoryItemWidget extends StatelessWidget {
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(6.0))),
             child: Row(
-              //mainAxisSize: MainAxisSize.max,
               children: [
                 SizedBox(
                   width: 50.0,
                   child: Padding(
                     padding: const EdgeInsets.only(left:5.0, top:4, right: 0.0, bottom: 4.0),
-                    child: Image.asset(imageCategory),
+                    child: Image.asset(category.image),
                   ),
                 ),
                 SizedBox(
@@ -42,14 +43,14 @@ class CategoryItemWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                            nameCategory,
+                            category.name,
                             style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w600,
                             )
                         ),
                         Text(
-                            "$kindsCategory kinds",
+                            "${category.kinds} kinds",
                             style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w300,

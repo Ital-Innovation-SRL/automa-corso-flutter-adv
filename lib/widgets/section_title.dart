@@ -12,11 +12,16 @@ class SectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(icon ?? Icons.info), //icon == null ? icon : Icons.info
-        Text(text),
-      ],
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.90,
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.only(right: 5.0),
+              child: Icon(icon ?? Icons.info, color: Colors.amber)), //icon == null ? icon : Icons.info
+          Text(text),
+        ],
+      ),
     );
   }
 }
