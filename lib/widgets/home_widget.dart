@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restapp_automa/screens/dish_type_detail_screen.dart';
 import 'package:restapp_automa/widgets/section_title.dart';
 
 import '../models/category.dart';
@@ -12,7 +13,8 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-  List<CategoryModel>? _listCategories;
+  List<CategoryModel>? _listCategories = [];
+  bool isFetchingData = true;
 
   @override
   void initState() {
@@ -22,30 +24,57 @@ class _HomeWidgetState extends State<HomeWidget> {
   }
 
   void _fetchData() async {
-    _listCategories = await getCategoryModels();
+    isFetchingData = true;
+    setState(() {});
+    // _listCategories = await getCategoryModels();
     // _listCategoryItemWidget = <CategoryItemWidget>[];
     // for (CategoryModel item in _listCategories) {
     //   CategoryItemWidget widget = CategoryItemWidget(category: item);
     //   _listCategoryItemWidget.add(widget);
     // }
+
+    isFetchingData = false;
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return /*isFetchingData
+        ? const Center(
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: CircularProgressIndicator(),
+            ),
+          )
+        : */
+        Column(
       children: [
-        _listCategories != null
-            ? _buildCategories()
-            : const Center(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: CircularProgressIndicator(),
-                ),
-              ),
+        _buildCategoriesFB(),
+        // _buildCategories(),
         _buildTodayDeals(),
         //_buildPopularItems(),
       ],
+    );
+  }
+
+  Widget _buildCategoriesFB() {
+    return FutureBuilder(
+      future: getCategoryModels(),
+      builder: (BuildContext context, AsyncSnapshot ass) {
+        switch (ass.connectionState) {
+          case ConnectionState.done:
+            _listCategories = ass.data;
+            return _buildCategories();
+          case ConnectionState.waiting:
+            return const Text("In attesa...");
+          default:
+            if (ass.hasError) {
+              return const Text("Error");
+            } else {
+              return const Text("Non c'è niente");
+            }
+        }
+      },
     );
   }
 
@@ -59,6 +88,19 @@ class _HomeWidgetState extends State<HomeWidget> {
                   itemBuilder: (BuildContext context, int index) =>
                       CategoryItemWidget(
                     category: _listCategories![index],
+                    onTap: () async {
+                      int? res = await Navigator.of(context).push(
+                        MaterialPageRoute(builder: (BuildContext context) {
+                          return DishTypeDetailScreen(
+                            cat: _listCategories![index],
+                          );
+                        }),
+                      );
+
+                      if (res != null) debugPrint(res.toString());
+                      onItemAdded(_listCategories![index].id);
+                      // Navigator.push(context, );
+                    },
                   ),
                   itemCount: _listCategories!.length,
                   scrollDirection: Axis.horizontal,
@@ -94,7 +136,7 @@ class _HomeWidgetState extends State<HomeWidget> {
       dessert
     ];
 
-    await Future.delayed(const Duration(seconds: 4));
+    // await Future.delayed(const Duration(seconds: 4));
 
     return listCategories;
   }

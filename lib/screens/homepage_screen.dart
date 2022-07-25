@@ -59,7 +59,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
     switch (_selectedIndex) {
       case PageIndexes.Home:
         //Business logic
-        result = const HomeWidget();
+        result = const HomeWidget(
+          onItemAdded: (int id){
+            //Aggiunge il prodotto al carrello (_productList)
+
+          }
+        );
         break;
       case PageIndexes.Restaurant:
         // result = const RestaurantWidget();

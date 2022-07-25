@@ -6,19 +6,28 @@ class CategoryItemWidget extends StatelessWidget {
   // final String nameCategory;
   // final int kindsCategory;
   final CategoryModel category;
+  final VoidCallback onTap;
+  // final Function(String type) onTap2;
 
-  const CategoryItemWidget({Key? key, required this.category})
-      : super(key: key);
+  const CategoryItemWidget({
+    Key? key,
+    required this.category,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return _makeCategoryItem();
   }
 
-  Widget _makeCategoryItem() => SizedBox(
-        width: 125,
-        //width: MediaQuery.of(context).size.width * 0.90,
-        child: GestureDetector(
+  Widget _makeCategoryItem() => InkWell(
+        // onTap: () {
+        //   onTap2("ciao");
+        // },
+        onTap: onTap,
+        child: SizedBox(
+          width: 125,
+          //width: MediaQuery.of(context).size.width * 0.90,
           child: Stack(
             clipBehavior: Clip.hardEdge,
             children: [
