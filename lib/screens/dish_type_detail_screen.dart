@@ -13,6 +13,7 @@ class DishTypeDetailScreen extends StatefulWidget {
 class _DishTypeDetailScreenState extends State<DishTypeDetailScreen> {
   @override
   Widget build(BuildContext context) {
+    //TODO utilizzare Hero()
     return Scaffold(
       appBar: AppBar(),
       body: SizedBox(
