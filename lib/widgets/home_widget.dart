@@ -12,7 +12,6 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-  List<CategoryItemWidget> _listCategoryItemWidget = <CategoryItemWidget>[];
   List<CategoryModel>? _listCategories;
 
   @override
@@ -36,12 +35,14 @@ class _HomeWidgetState extends State<HomeWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _listCategories != null ? _buildCategories() : Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CircularProgressIndicator(),
-          ),
-        ),
+        _listCategories != null
+            ? _buildCategories()
+            : const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: CircularProgressIndicator(),
+                ),
+              ),
         _buildTodayDeals(),
         //_buildPopularItems(),
       ],
@@ -52,15 +53,17 @@ class _HomeWidgetState extends State<HomeWidget> {
         height: 70,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: _listCategories!.isEmpty ? Text("Non ci sono elementi") : ListView.builder(
-            itemBuilder: (BuildContext context, int index) =>
-                CategoryItemWidget(
-              category: _listCategories![index],
-            ),
-            itemCount: _listCategories!.length,
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-          ),
+          child: _listCategories!.isEmpty
+              ? const Text("Non ci sono elementi")
+              : ListView.builder(
+                  itemBuilder: (BuildContext context, int index) =>
+                      CategoryItemWidget(
+                    category: _listCategories![index],
+                  ),
+                  itemCount: _listCategories!.length,
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                ),
           // child: ListView(
           //   scrollDirection: Axis.horizontal,
           //   shrinkWrap: true,
@@ -91,7 +94,7 @@ class _HomeWidgetState extends State<HomeWidget> {
       dessert
     ];
 
-    await Future.delayed(Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 4));
 
     return listCategories;
   }
@@ -114,7 +117,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       width: 125,
                       child: Column(
                         children: [
-                          Container(
+                          SizedBox(
                             width: 160.0,
                             height: 150.0,
                             child: ClipRRect(
