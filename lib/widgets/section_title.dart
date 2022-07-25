@@ -16,9 +16,10 @@ class SectionTitle extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.90,
       child: Row(
         children: [
-          Container(
+          Padding(
             padding: const EdgeInsets.only(right: 5.0),
-              child: Icon(icon ?? Icons.info, color: Colors.amber)), //icon == null ? icon : Icons.info
+            child: Icon(icon ?? Icons.info, color: Colors.amber),
+          ), //icon == null ? icon : Icons.info
           Text(text),
         ],
       ),
