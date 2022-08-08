@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restapp_automa/screens/cart_screen.dart';
 import 'package:restapp_automa/widgets/home_widget.dart';
 
 class PageIndexes {
@@ -17,11 +18,6 @@ class HomePageScreen extends StatefulWidget {
 class _HomePageScreenState extends State<HomePageScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _selectedIndex = PageIndexes.Home;
-  static final List<Widget> _pages = [
-    const HomeWidget(),
-    Container(),
-    Container(),
-  ];
 
   @override
   void initState() {
@@ -46,9 +42,25 @@ class _HomePageScreenState extends State<HomePageScreen> {
         //     _scaffoldKey.currentState?.openDrawer();
         //   },
         // ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.shopping_cart),
+            onPressed: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return const CartScreen();
+                  },
+                ),
+              );
+              debugPrint("Ciao");
+            },
+          ),
+        ],
       ),
       // body: _buildBody(),
-      body: _pages.elementAt(_selectedIndex),
+      body: _buildBody(),
       bottomNavigationBar: _buildBottomBar(),
       drawer: _buildDrawer(),
     );
@@ -59,11 +71,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
     switch (_selectedIndex) {
       case PageIndexes.Home:
         //Business logic
-        result = const HomeWidget(
-          onItemAdded: (int id){
-            //Aggiunge il prodotto al carrello (_productList)
-
-          }
+        result = HomeWidget(
+          onAddToCart: () async {
+            debugPrint("Prodotto aggiunto al carrello!");
+            //Aggiunge il prodotto ad una lista di prodotti del carrello
+          },
         );
         break;
       case PageIndexes.Restaurant:

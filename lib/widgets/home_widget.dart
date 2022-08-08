@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:restapp_automa/models/dish.dart';
+import 'package:restapp_automa/screens/dish_detail_screen.dart';
 import 'package:restapp_automa/screens/dish_type_detail_screen.dart';
+import 'package:restapp_automa/widgets/dish_card.dart';
 import 'package:restapp_automa/widgets/section_title.dart';
 
 import '../models/category.dart';
 import 'category_item_widget.dart';
 
 class HomeWidget extends StatefulWidget {
-  const HomeWidget({Key? key}) : super(key: key);
+  final VoidCallback onAddToCart;
+
+  const HomeWidget({
+    Key? key,
+    required this.onAddToCart,
+  }) : super(key: key);
 
   @override
   State<HomeWidget> createState() => _HomeWidgetState();
@@ -15,6 +23,25 @@ class HomeWidget extends StatefulWidget {
 class _HomeWidgetState extends State<HomeWidget> {
   List<CategoryModel>? _listCategories = [];
   bool isFetchingData = true;
+  Dish _dish = Dish(
+    id: 1,
+    name: "Tiramisù",
+    description: """
+Il tiramisù è un dolce e prodotto agroalimentare tradizionale diffuso in tutto il territorio italiano, 
+le cui origini sono dibattute e attribuite soprattutto al Veneto e al Friuli-Venezia Giulia. 
+È un dessert al cucchiaio a base di savoiardi (oppure altri biscotti di consistenza friabile) inzuppati nel caffè e ricoperti di una crema, composta di 
+mascarpone, uova e zucchero, che in alcune varianti è aromatizzata con il liquore.Il tiramisù è un dolce e prodotto agroalimentare tradizionale diffuso in tutto il territorio italiano, 
+le cui origini sono dibattute e attribuite soprattutto al Veneto e al Friuli-Venezia Giulia. 
+È un dessert al cucchiaio a base di savoiardi (oppure altri biscotti di consistenza friabile) inzuppati nel caffè e ricoperti di una crema, composta di 
+mascarpone, uova e zucchero, che in alcune varianti è aromatizzata con il liquore.Il tiramisù è un dolce e prodotto agroalimentare tradizionale diffuso in tutto il territorio italiano, 
+le cui origini sono dibattute e attribuite soprattutto al Veneto e al Friuli-Venezia Giulia. 
+È un dessert al cucchiaio a base di savoiardi (oppure altri biscotti di consistenza friabile) inzuppati nel caffè e ricoperti di una crema, composta di 
+mascarpone, uova e zucchero, che in alcune varianti è aromatizzata con il liquore.
+                            """,
+    imageUrl:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Tiramisu_-_Raffaele_Diomede.jpg/260px-Tiramisu_-_Raffaele_Diomede.jpg",
+    price: 35.40,
+  );
 
   @override
   void initState() {
@@ -98,7 +125,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       );
 
                       if (res != null) debugPrint(res.toString());
-                      onItemAdded(_listCategories![index].id);
+                      // onItemAdded(_listCategories![index].id);
                       // Navigator.push(context, );
                     },
                   ),
@@ -155,66 +182,21 @@ class _HomeWidgetState extends State<HomeWidget> {
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   children: [
-                    SizedBox(
-                      width: 125,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            width: 160.0,
-                            height: 150.0,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child:
-                                  Image.asset('./assets/images/bkforest2.jpg'),
-                            ),
+                    DishCard(
+                      dish: _dish,
+                      onTap: () async {
+                        bool? res = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                DishDetailScreen(dish: _dish),
                           ),
-                          Container(
-                            width: 160.0,
-                            color: Colors.blue,
-                          ),
-                          // SizedBox(
-                          //   width: MediaQuery.of(context).size.width * 0.45,
-                          //   height: 150,
-                          //   child: Padding(
-                          //     padding: const EdgeInsets.all(5.0),
-                          //     child: Image.asset(
-                          //         './assets/images/dessert.png' ),
-                          //   ),
-                          // ),
-                          // SizedBox(
-                          //   //width: 60,
-                          //   child: Padding(
-                          //     padding: const EdgeInsets.all(0.0),
-                          //     child: Column(
-                          //       mainAxisAlignment: MainAxisAlignment.center,
-                          //       crossAxisAlignment: CrossAxisAlignment.center,
-                          //       children: [
-                          //         Container(
-                          //           padding: const EdgeInsets.all(1.0),
-                          //           child: const Text(
-                          //               "Blackforest",
-                          //               style: TextStyle(
-                          //                 fontSize: 13,
-                          //                 fontWeight: FontWeight.w600,
-                          //               )
-                          //           ),
-                          //         ),
-                          //         Container(
-                          //           padding: const EdgeInsets.all(1.0),
-                          //           child: const Text(
-                          //               " 25 kinds",
-                          //               style: TextStyle(
-                          //                 fontSize: 13,
-                          //                 fontWeight: FontWeight.w300,
-                          //               )
-                          //           ),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ),
-                          // )
-                        ],
-                      ),
+                        );
+                        debugPrint("Risultato dal dettaglio $res");
+                        if (res != null) {
+                          widget.onAddToCart();
+                        }
+                      },
                     ),
                   ],
                 ),

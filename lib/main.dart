@@ -22,9 +22,9 @@ class MyApp extends StatelessWidget {
           enableFeedback: true,
         ),
         textTheme: Theme.of(context).textTheme.copyWith(
-              headline4: Theme.of(context).textTheme.headline4!.copyWith(
-                    fontSize: Theme.of(context).textTheme.headline1!.fontSize,
-                  ),
+              // headline4: Theme.of(context).textTheme.headline4!.copyWith(
+              //       fontSize: Theme.of(context).textTheme.headline1!.fontSize,
+              //     ),
             ),
       ),
       home: const HomePageScreen(),
