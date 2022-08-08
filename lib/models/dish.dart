@@ -13,12 +13,14 @@ class Dish {
     this.id,
     required this.name,
     required this.description,
+    this.firebaseId,
     required this.imageUrl,
     required this.price,
   });
 
   int? id;
   String name;
+  String? firebaseId;
   String description;
   String imageUrl;
   double price;
@@ -26,6 +28,7 @@ class Dish {
   Dish copyWith({
     int? id,
     required String name,
+    required String firebaseId,
     required String description,
     required String imageUrl,
     required double price,
@@ -33,6 +36,7 @@ class Dish {
       Dish(
         id: id ?? this.id,
         name: name,
+        firebaseId: firebaseId,
         description: description,
         imageUrl: imageUrl,
         price: price,

@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:restapp_automa/main.dart';
+import 'package:restapp_automa/models/dish.dart';
 import 'package:restapp_automa/screens/cart_screen.dart';
 import 'package:restapp_automa/widgets/home_widget.dart';
 
@@ -60,8 +63,27 @@ class _HomePageScreenState extends State<HomePageScreen> {
         ],
       ),
       // body: _buildBody(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          CollectionReference<Map<String, dynamic>> dishes =
+              firestore.collection("dishes");
+
+          List.generate(
+            5,
+            (index) => dishes.add(
+              Dish(
+                name: "Torta $index",
+                description: "Descrizione $index",
+                imageUrl: "https://picsum.photos/200/300",
+                price: (index * 10).toDouble(),
+              ).toJson(),
+            ),
+          );
+        },
+        child: const Icon(Icons.add),
+      ),
       body: _buildBody(),
-      bottomNavigationBar: _buildBottomBar(),
+      // bottomNavigationBar: _buildBottomBar(),
       drawer: _buildDrawer(),
     );
   }
@@ -114,19 +136,17 @@ class _HomePageScreenState extends State<HomePageScreen> {
     );
   }
 
-  Widget _buildDrawer() {
-    return Drawer(
-      child: Column(
-        children: const [
-          DrawerHeader(child: Text("Ciao")),
-          Divider(
-            color: Colors.red,
-          ),
-          ListTile(
-            title: Text("Title"),
-          ),
-        ],
-      ),
-    );
-  }
+  Widget _buildDrawer() => Drawer(
+        child: Column(
+          children: const [
+            DrawerHeader(child: Text("Ciao")),
+            Divider(
+              color: Colors.red,
+            ),
+            ListTile(
+              title: Text("Title"),
+            ),
+          ],
+        ),
+      );
 }
