@@ -125,4 +125,8 @@ class _RestaurantWidgetState extends State<RestaurantWidget>
           ),
         ],
       );
+
+  //TODO: caricamento file
+  //TODO: cropping foto
+  //TODO: i18n
 }
