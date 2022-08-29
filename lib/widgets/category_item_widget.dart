@@ -76,23 +76,6 @@ class CategoryItemWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                child: Container(
-                  width: 20,
-                  height: 20,
-                  color: Colors.lightGreenAccent,
-                ),
-              ),
-              Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  width: 20,
-                  height: 20,
-                  color: Colors.red,
-                ),
-              ),
             ],
           ),
         ),

@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>421775087736-k1cstadqqc40s7tf1hahv5alekbvjj5i.apps.googleusercontent.com</string>
+	<string>787311133272-icr2btpqtg2ptomn050effr144qm29ha.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.421775087736-k1cstadqqc40s7tf1hahv5alekbvjj5i</string>
+	<string>com.googleusercontent.apps.787311133272-icr2btpqtg2ptomn050effr144qm29ha</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCPumqs2CyXbPaeoMMmNn3iOX7AJc1lta8</string>
+	<string>AIzaSyDCS5oPuMAaT5zKJB_ETvvT5i-UFWXWcIQ</string>
 	<key>GCM_SENDER_ID</key>
-	<string>421775087736</string>
+	<string>787311133272</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.restappAutoma</string>
 	<key>PROJECT_ID</key>
-	<string>restapp-automa</string>
+	<string>restaurantapp-albe</string>
 	<key>STORAGE_BUCKET</key>
-	<string>restapp-automa.appspot.com</string>
+	<string>restaurantapp-albe.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:421775087736:ios:8bbe32ce45535a1197358d</string>
+	<string>1:787311133272:ios:b0c23aed365e4fc31a802d</string>
 </dict>
 </plist>

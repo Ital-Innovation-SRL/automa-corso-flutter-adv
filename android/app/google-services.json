@@ -1,41 +1,34 @@
 {
   "project_info": {
-    "project_number": "421775087736",
-    "project_id": "restapp-automa",
-    "storage_bucket": "restapp-automa.appspot.com"
+    "project_number": "787311133272",
+    "project_id": "restaurantapp-albe",
+    "storage_bucket": "restaurantapp-albe.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:421775087736:android:67d85c63230998c497358d",
+        "mobilesdk_app_id": "1:787311133272:android:bf389349e1d4c3641a802d",
         "android_client_info": {
           "package_name": "com.example.restapp_automa"
         }
       },
       "oauth_client": [
         {
-          "client_id": "421775087736-qlt30p8oh5ss4j6mjl1n13ln52akh24d.apps.googleusercontent.com",
+          "client_id": "787311133272-1ff2p2rvtuanrsbmh24uuu2g29i2v3f2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCFcOLxKf0Y5DCSADbUowhRZ9N8u-Eo3E0"
+          "current_key": "AIzaSyBiDDFIcz-bltNYx2jHCl41E5rqLod2n-g"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "421775087736-qlt30p8oh5ss4j6mjl1n13ln52akh24d.apps.googleusercontent.com",
+              "client_id": "787311133272-1ff2p2rvtuanrsbmh24uuu2g29i2v3f2.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "421775087736-k1cstadqqc40s7tf1hahv5alekbvjj5i.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.restappAutoma"
-              }
             }
           ]
         }

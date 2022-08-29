@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:restapp_automa/main.dart';
 import 'package:restapp_automa/models/dish.dart';
 import 'package:restapp_automa/screens/cart_screen.dart';
+import 'package:restapp_automa/widgets/custom_app_bar.dart';
 import 'package:restapp_automa/widgets/home_widget.dart';
 
 class PageIndexes {
@@ -36,8 +37,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-        title: const Text("RestApp"),
+      appBar: CustomAppbar(
+        text: "FoodDaddy",
+        counter: 0,
         // leading: IconButton(
         //   icon: const Icon(Icons.people),
         //   onPressed: () {
@@ -45,22 +47,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
         //     _scaffoldKey.currentState?.openDrawer();
         //   },
         // ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            onPressed: () async {
-              await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return const CartScreen();
-                  },
-                ),
-              );
-              debugPrint("Ciao");
-            },
-          ),
-        ],
       ),
       // body: _buildBody(),
       floatingActionButton: FloatingActionButton(
@@ -94,9 +80,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
       case PageIndexes.Home:
         //Business logic
         result = HomeWidget(
+          //Aggiunge il prodotto ad una lista di prodotti del carrello
           onAddToCart: () async {
             debugPrint("Prodotto aggiunto al carrello!");
-            //Aggiunge il prodotto ad una lista di prodotti del carrello
           },
         );
         break;
