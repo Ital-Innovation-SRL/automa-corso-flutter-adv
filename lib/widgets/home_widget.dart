@@ -24,8 +24,8 @@ class HomeWidget extends StatefulWidget {
 
 class _HomeWidgetState extends State<HomeWidget> {
   List<CategoryModel>? _listCategories = [];
-  bool isFetchingData = true;
   List<Dish> dishList = [];
+  bool isFetchingData = false;
 
 //   Dish _dish = Dish(
 //     id: 1,
@@ -63,46 +63,42 @@ class _HomeWidgetState extends State<HomeWidget> {
     //   CategoryItemWidget widget = CategoryItemWidget(category: item);
     //   _listCategoryItemWidget.add(widget);
     // }
-
-    isFetchingData = false;
-    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return /*isFetchingData
+    return isFetchingData
         ? const Center(
             child: Padding(
               padding: EdgeInsets.all(8.0),
               child: CircularProgressIndicator(),
             ),
           )
-        : */
-        Column(
-      children: [
-        _buildCategoriesFB(),
-        // _buildCategories(),
-        _buildTodayDeals(),
-        //_buildPopularItems(),
-      ],
-    );
+        : Column(
+            children: [
+              _buildCategoriesFB(),
+              // _buildCategories(),
+              _buildTodayDeals(),
+              //_buildPopularItems(),
+            ],
+          );
   }
 
   Widget _buildCategoriesFB() {
     return FutureBuilder(
       future: getCategoryModels(),
-      builder: (BuildContext context, AsyncSnapshot ass) {
-        switch (ass.connectionState) {
+      builder: (BuildContext context, AsyncSnapshot asyncSnapshot) {
+        switch (asyncSnapshot.connectionState) {
           case ConnectionState.done:
-            _listCategories = ass.data;
+            _listCategories = asyncSnapshot.data;
             return _buildCategories();
           case ConnectionState.waiting:
-            return const Text("In attesa...");
+            return const Text("In attesa dei dati...");
           default:
-            if (ass.hasError) {
-              return const Text("Error");
+            if (asyncSnapshot.hasError) {
+              return const Text("Errore");
             } else {
-              return const Text("Non c'è niente");
+              return const Text("Non ci sono elementi");
             }
         }
       },
@@ -197,9 +193,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                             return temp;
                           }).toList();
                           return dishList.isEmpty
-                              ? const Center(
-                                  child: Text("Lista vuota")
-                                )
+                              ? const Center(child: Text("Lista vuota"))
                               : _buildDishes();
                         } else {
                           return const CircularProgressIndicator();
