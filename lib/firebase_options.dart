@@ -47,29 +47,29 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDdVk9qX6QasIR59ubIlBstwoO5gvjmJs8',
-    appId: '1:787311133272:web:04b901a8066fc5691a802d',
-    messagingSenderId: '787311133272',
-    projectId: 'restaurantapp-albe',
-    authDomain: 'restaurantapp-albe.firebaseapp.com',
-    storageBucket: 'restaurantapp-albe.appspot.com',
+    apiKey: 'AIzaSyD8Kyc3x0cv_SJwiktn7h3dbDbci01GWOI',
+    appId: '1:421775087736:web:cca9ae9792961b1597358d',
+    messagingSenderId: '421775087736',
+    projectId: 'restapp-automa',
+    authDomain: 'restapp-automa.firebaseapp.com',
+    storageBucket: 'restapp-automa.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBiDDFIcz-bltNYx2jHCl41E5rqLod2n-g',
-    appId: '1:787311133272:android:bf389349e1d4c3641a802d',
-    messagingSenderId: '787311133272',
-    projectId: 'restaurantapp-albe',
-    storageBucket: 'restaurantapp-albe.appspot.com',
+    apiKey: 'AIzaSyCFcOLxKf0Y5DCSADbUowhRZ9N8u-Eo3E0',
+    appId: '1:421775087736:android:67d85c63230998c497358d',
+    messagingSenderId: '421775087736',
+    projectId: 'restapp-automa',
+    storageBucket: 'restapp-automa.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDCS5oPuMAaT5zKJB_ETvvT5i-UFWXWcIQ',
-    appId: '1:787311133272:ios:b0c23aed365e4fc31a802d',
-    messagingSenderId: '787311133272',
-    projectId: 'restaurantapp-albe',
-    storageBucket: 'restaurantapp-albe.appspot.com',
-    iosClientId: '787311133272-icr2btpqtg2ptomn050effr144qm29ha.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCPumqs2CyXbPaeoMMmNn3iOX7AJc1lta8',
+    appId: '1:421775087736:ios:8bbe32ce45535a1197358d',
+    messagingSenderId: '421775087736',
+    projectId: 'restapp-automa',
+    storageBucket: 'restapp-automa.appspot.com',
+    iosClientId: '421775087736-k1cstadqqc40s7tf1hahv5alekbvjj5i.apps.googleusercontent.com',
     iosBundleId: 'com.example.restappAutoma',
   );
 }

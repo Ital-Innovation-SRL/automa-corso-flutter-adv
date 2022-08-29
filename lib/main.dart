@@ -18,24 +18,23 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Restaurant App',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Colors.grey[200],
-          elevation: 3,
-          enableFeedback: true,
+  Widget build(BuildContext context) => MaterialApp(
+        title: 'Restaurant App',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.amber,
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Colors.grey[200],
+            elevation: 3,
+            enableFeedback: true,
+          ),
+          textTheme: Theme.of(context).textTheme.copyWith(
+                titleLarge: Theme.of(context).textTheme.subtitle1!.copyWith(
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 1.5,
+                    ),
+              ),
         ),
-        textTheme: Theme.of(context).textTheme.copyWith(
-            // headline4: Theme.of(context).textTheme.headline4!.copyWith(
-            //       fontSize: Theme.of(context).textTheme.headline1!.fontSize,
-            //     ),
-            ),
-      ),
-      home: const HomePageScreen(),
-    );
-  }
+        home: const HomePageScreen(),
+      );
 }

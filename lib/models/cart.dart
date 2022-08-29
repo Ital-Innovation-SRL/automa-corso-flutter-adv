@@ -42,14 +42,14 @@ class Cart {
     required String image,
   }) =>
       Cart(
-        id: id ?? this.id,
-        productId: productId ?? this.productId,
-        productName: productName ?? this.productName,
-        initialPrice: initialPrice ?? this.initialPrice,
-        productPrice: productPrice ?? this.productPrice,
-        quantity: quantity ?? this.quantity,
-        unitTag: unitTag ?? this.unitTag,
-        image: image ?? this.image,
+        id: id,
+        productId: productId,
+        productName: productName,
+        initialPrice: initialPrice,
+        productPrice: productPrice,
+        quantity: quantity,
+        unitTag: unitTag,
+        image: image,
       );
 
   factory Cart.fromJson(Map<String, dynamic> json) => Cart(

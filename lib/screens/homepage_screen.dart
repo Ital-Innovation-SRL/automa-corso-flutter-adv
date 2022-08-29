@@ -1,10 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:restapp_automa/main.dart';
-import 'package:restapp_automa/models/dish.dart';
-import 'package:restapp_automa/screens/cart_screen.dart';
+import 'package:restapp_automa/utils/helper_function.dart';
+import 'package:restapp_automa/utils/strings.dart';
 import 'package:restapp_automa/widgets/custom_app_bar.dart';
 import 'package:restapp_automa/widgets/home_widget.dart';
+import 'package:restapp_automa/widgets/restaurant_widget.dart';
 
 class PageIndexes {
   static const int Home = 0;
@@ -34,49 +33,54 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: CustomAppbar(
-        text: "FoodDaddy",
-        counter: 0,
-        // leading: IconButton(
-        //   icon: const Icon(Icons.people),
-        //   onPressed: () {
-        //     //Apri il drawer
-        //     _scaffoldKey.currentState?.openDrawer();
-        //   },
-        // ),
-      ),
-      // body: _buildBody(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          CollectionReference<Map<String, dynamic>> dishes =
-              firestore.collection("dishes");
+  Widget build(BuildContext context) => Scaffold(
+        key: _scaffoldKey,
+        appBar: const CustomAppbar(text: Strings.appName, counter: 0),
+        floatingActionButton: const FloatingActionButton(
+          onPressed: generateDummyDishes,
+          child: Icon(Icons.add),
+        ),
+        body: _Body(index: _selectedIndex),
+        bottomNavigationBar: _buildBottomBar(),
+        drawer: const _Drawer(),
+      );
 
-          List.generate(
-            5,
-            (index) => dishes.add(
-              Dish(
-                name: "Torta $index",
-                description: "Descrizione $index",
-                imageUrl: "https://picsum.photos/200/300",
-                price: (index * 10).toDouble(),
-              ).toJson(),
-            ),
-          );
+  Widget _buildBottomBar() => BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: (int index) {
+          if (index == PageIndexes.Account) {
+          } else {
+            _selectedIndex = index;
+            setState(() {});
+          }
         },
-        child: const Icon(Icons.add),
-      ),
-      body: _buildBody(),
-      // bottomNavigationBar: _buildBottomBar(),
-      drawer: _buildDrawer(),
-    );
-  }
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+            activeIcon: Icon(Icons.home_outlined),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.restaurant),
+            label: "Ristorante",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: "Account",
+          ),
+        ],
+      );
+}
 
-  Widget _buildBody() {
+class _Body extends StatelessWidget {
+  final int index;
+
+  const _Body({Key? key, required this.index}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     Widget result = Container();
-    switch (_selectedIndex) {
+    switch (index) {
       case PageIndexes.Home:
         //Business logic
         result = HomeWidget(
@@ -87,51 +91,25 @@ class _HomePageScreenState extends State<HomePageScreen> {
         );
         break;
       case PageIndexes.Restaurant:
-        // result = const RestaurantWidget();
+        result = const RestaurantWidget();
         break;
       default:
         break;
     }
     return result;
   }
+}
 
-  Widget _buildBottomBar() {
-    return BottomNavigationBar(
-      currentIndex: _selectedIndex,
-      onTap: (int index) {
-        if (index == PageIndexes.Account) {
-        } else {
-          _selectedIndex = index;
-          setState(() {});
-        }
-      },
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: "Home",
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.restaurant),
-          label: "Ristorante",
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: "Account",
-        ),
-      ],
-    );
-  }
+class _Drawer extends StatelessWidget {
+  const _Drawer({Key? key}) : super(key: key);
 
-  Widget _buildDrawer() => Drawer(
+  @override
+  Widget build(BuildContext context) => Drawer(
         child: Column(
           children: const [
             DrawerHeader(child: Text("Ciao")),
-            Divider(
-              color: Colors.red,
-            ),
-            ListTile(
-              title: Text("Title"),
-            ),
+            Divider(color: Colors.red),
+            ListTile(title: Text("Title")),
           ],
         ),
       );

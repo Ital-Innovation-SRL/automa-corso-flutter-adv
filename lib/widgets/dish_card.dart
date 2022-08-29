@@ -14,61 +14,34 @@ class DishCard extends StatelessWidget {
     required this.onTap,
   }) : super(key: key);
 
-  //
-  // @override
-  // Widget build(BuildContext context) => InkWell(
-  //       onTap: onTap,
-  //       child: SizedBox(
-  //         width: 125,
-  //         child: Column(
-  //           children: [
-  //             SizedBox(
-  //               width: 160.0,
-  //               height: 150.0,
-  //               child: Hero(
-  //                 tag: "dish-${dish.id}",
-  //                 child: Image.network(
-  //                   dish.imageUrl,
-  //                   errorBuilder: (_, __, ___) => Container(
-  //                     height: 50,
-  //                     width: 50,
-  //                     color: Colors.red[700],
-  //                   ),
-  //                 ),
-  //               ),
-  //             ),
-  //             Hero(
-  //               tag: "text-${dish.id}",
-  //               child: AutoSizeText(
-  //                 dish.name,
-  //                 maxLines: 1,
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     );
   @override
-  Widget build(BuildContext context) => ListTile(
-        onLongPress: onRemove,
-        leading: Hero(
-          tag: "dish-${dish.id}",
-          child: Image.network(
-            dish.imageUrl,
-            errorBuilder: (_, __, ___) => Container(
-              height: 50,
-              width: 50,
-              color: Colors.red[700],
+  Widget build(BuildContext context) => Material(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        color: Colors.white,
+        elevation: 3,
+        child: ListTile(
+          onLongPress: onRemove,
+          leading: Hero(
+            tag: "dish-${dish.id}",
+            child: Image.network(
+              dish.imageUrl,
+              errorBuilder: (_, __, ___) => Container(
+                height: 50,
+                width: 50,
+                color: Colors.red[700],
+              ),
             ),
           ),
-        ),
-        title: Hero(
-          tag: "text-${dish.id}",
-          child: AutoSizeText(
-            dish.name,
-            maxLines: 1,
+          title: Hero(
+            tag: "text-${dish.id}",
+            child: AutoSizeText(
+              dish.name,
+              maxLines: 1,
+            ),
           ),
+          subtitle: Text(dish.description),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: onTap,
         ),
-        onTap: onTap,
       );
 }

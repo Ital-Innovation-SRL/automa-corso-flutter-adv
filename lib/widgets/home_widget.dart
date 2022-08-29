@@ -26,6 +26,8 @@ class _HomeWidgetState extends State<HomeWidget> {
   List<CategoryModel>? _listCategories = [];
   List<Dish> dishList = [];
   bool isFetchingData = false;
+  late Future _categoryListFuture;
+  bool _isFirstExecution = false;
 
 //   Dish _dish = Dish(
 //     id: 1,
@@ -52,6 +54,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     super.initState();
     //Business logic
     _fetchData();
+    _categoryListFuture = getCategoryModels();
   }
 
   void _fetchData() async {
@@ -63,6 +66,8 @@ class _HomeWidgetState extends State<HomeWidget> {
     //   CategoryItemWidget widget = CategoryItemWidget(category: item);
     //   _listCategoryItemWidget.add(widget);
     // }
+    isFetchingData = false;
+    setState(() {});
   }
 
   @override
@@ -90,17 +95,22 @@ class _HomeWidgetState extends State<HomeWidget> {
       builder: (BuildContext context, AsyncSnapshot asyncSnapshot) {
         switch (asyncSnapshot.connectionState) {
           case ConnectionState.done:
-            _listCategories = asyncSnapshot.data;
-            return _buildCategories();
+            if (asyncSnapshot.hasError) {
+              return Text(asyncSnapshot.error.toString());
+            } else {
+              if (!_isFirstExecution) {
+                _isFirstExecution = true;
+                _listCategories = (asyncSnapshot.data as List<CategoryModel>);
+              }
+            }
+            break;
           case ConnectionState.waiting:
             return const Text("In attesa dei dati...");
           default:
-            if (asyncSnapshot.hasError) {
-              return const Text("Errore");
-            } else {
-              return const Text("Non ci sono elementi");
-            }
+            return const SizedBox();
         }
+
+        return _buildCategories();
       },
     );
   }
@@ -169,63 +179,36 @@ class _HomeWidgetState extends State<HomeWidget> {
   }
 
   Widget _buildTodayDeals() => Expanded(
-        child: SingleChildScrollView(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SectionTitle(text: "Today's deals", icon: Icons.sell),
-                  Expanded(
-                    child: StreamBuilder(
-                      stream: firestore.collection("dishes").snapshots(),
-                      builder: (BuildContext context, AsyncSnapshot as) {
-                        if (as.hasData) {
-                          dishList = (as.data as QuerySnapshot)
-                              .docs
-                              .map((QueryDocumentSnapshot e) {
-                            Dish temp =
-                                Dish.fromJson(e.data() as Map<String, dynamic>);
-                            temp.firebaseId = e.id;
-                            return temp;
-                          }).toList();
-                          return dishList.isEmpty
-                              ? const Center(child: Text("Lista vuota"))
-                              : _buildDishes();
-                        } else {
-                          return const CircularProgressIndicator();
-                        }
-                      },
-                    ),
-                    // child: ListView(
-                    //   scrollDirection: Axis.horizontal,
-                    //   shrinkWrap: true,
-                    //   children: [
-                    //     DishCard(
-                    //       dish: _dish,
-                    //       onTap: () async {
-                    //         bool? res = await Navigator.push(
-                    //           context,
-                    //           MaterialPageRoute(
-                    //             builder: (BuildContext context) =>
-                    //                 DishDetailScreen(dish: _dish),
-                    //           ),
-                    //         );
-                    //         debugPrint("Risultato dal dettaglio $res");
-                    //         if (res != null) {
-                    //           widget.onAddToCart();
-                    //         }
-                    //       },
-                    //     ),
-                    //   ],
-                    // ),
-                  ),
-                ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SectionTitle(text: "Today's deals", icon: Icons.sell),
+              Expanded(
+                child: StreamBuilder(
+                  stream: firestore.collection("dishes").snapshots(),
+                  builder: (BuildContext context, AsyncSnapshot as) {
+                    if (as.hasData) {
+                      dishList = (as.data as QuerySnapshot)
+                          .docs
+                          .map((QueryDocumentSnapshot e) {
+                        Dish temp =
+                            Dish.fromJson(e.data() as Map<String, dynamic>);
+                        temp.firebaseId = e.id;
+                        return temp;
+                      }).toList();
+                      return dishList.isEmpty
+                          ? const Center(child: Text("Lista vuota"))
+                          : _buildDishes();
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                ),
               ),
-            ),
+            ],
           ),
         ),
       );
@@ -253,10 +236,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                 .delete();
           },
         ),
-        separatorBuilder: (BuildContext context, int index) => const Divider(
-          thickness: 2,
-          color: Colors.red,
-        ),
+        separatorBuilder: (BuildContext context, int index) =>
+            const SizedBox(height: 8),
         itemCount: dishList.length,
       );
 

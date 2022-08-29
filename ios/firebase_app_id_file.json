@@ -1,7 +1,7 @@
 {
   "file_generated_by": "FlutterFire CLI",
   "purpose": "FirebaseAppID & ProjectID for this Firebase app in this directory",
-  "GOOGLE_APP_ID": "1:787311133272:ios:b0c23aed365e4fc31a802d",
-  "FIREBASE_PROJECT_ID": "restaurantapp-albe",
-  "GCM_SENDER_ID": "787311133272"
+  "GOOGLE_APP_ID": "1:421775087736:ios:8bbe32ce45535a1197358d",
+  "FIREBASE_PROJECT_ID": "restapp-automa",
+  "GCM_SENDER_ID": "421775087736"
 }
