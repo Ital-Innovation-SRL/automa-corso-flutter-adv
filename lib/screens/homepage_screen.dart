@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restapp_automa/utils/helper_function.dart';
 import 'package:restapp_automa/utils/strings.dart';
+import 'package:restapp_automa/widgets/account_widget.dart';
 import 'package:restapp_automa/widgets/custom_app_bar.dart';
 import 'package:restapp_automa/widgets/home_widget.dart';
 import 'package:restapp_automa/widgets/restaurant_widget.dart';
@@ -47,8 +48,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   Widget _buildBottomBar() => BottomNavigationBar(
         currentIndex: _selectedIndex,
-        onTap: (int index) {
+        onTap: (int index) async {
           if (index == PageIndexes.Account) {
+            await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => const AccountWidget(),
+              ),
+            );
+            setState(() {});
           } else {
             _selectedIndex = index;
             setState(() {});
