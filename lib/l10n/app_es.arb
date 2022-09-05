@@ -1,0 +1,5 @@
+{
+  "helloWorld": "Hola Mundo!",
+  "helloWorldWithName": "Hola, {user}!",
+  "save": "Guardar"
+}

@@ -1,8 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:restapp_automa/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountWidget extends StatefulWidget {
   const AccountWidget({Key? key}) : super(key: key);
@@ -100,9 +103,20 @@ class _AccountWidgetState extends State<AccountWidget> {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton.icon(
+                  onPressed: () async {
+                    Locale locale = const Locale("it");
+                    MyApp.of(context)!.setLocale(locale);
+                    (await SharedPreferences.getInstance())
+                        .setString("language", locale.languageCode);
+                  },
+                  icon: const Icon(Icons.flag),
+                  label: const Text("Cambia lingua in Italiano"),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton.icon(
                   onPressed: () {},
                   icon: const Icon(Icons.save),
-                  label: const Text("Salva"),
+                  label: Text(AppLocalizations.of(context)!.save),
                 ),
               ],
             ),

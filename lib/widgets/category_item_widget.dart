@@ -7,6 +7,7 @@ class CategoryItemWidget extends StatelessWidget {
   // final int kindsCategory;
   final CategoryModel category;
   final VoidCallback onTap;
+
   // final Function(String type) onTap2;
 
   const CategoryItemWidget({
@@ -17,10 +18,10 @@ class CategoryItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _makeCategoryItem();
+    return _makeCategoryItem(context);
   }
 
-  Widget _makeCategoryItem() => InkWell(
+  Widget _makeCategoryItem(context) => InkWell(
         // onTap: () {
         //   onTap2("ciao");
         // },
@@ -57,7 +58,7 @@ class CategoryItemWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(category.name,
+                            Text(category.name, //Category + category.name
                                 style: const TextStyle(
                                   fontSize: 13,
                                   fontWeight: FontWeight.w600,

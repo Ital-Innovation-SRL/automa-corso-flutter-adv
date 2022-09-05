@@ -1,0 +1,20 @@
+{
+  "helloWorld": "Hello World!",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting"
+  },
+  "helloWorldWithName": "Hello, {user}!",
+  "@helloWorldWithName": {
+    "description": "The conventional newborn programmer greeting",
+    "placeholders": {
+      "user": {
+        "type": "String",
+        "example": "1"
+      }
+    }
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Save button label"
+  }
+}

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:restapp_automa/utils/helper_function.dart';
-import 'package:restapp_automa/utils/strings.dart';
 import 'package:restapp_automa/widgets/account_widget.dart';
 import 'package:restapp_automa/widgets/custom_app_bar.dart';
 import 'package:restapp_automa/widgets/home_widget.dart';
@@ -36,7 +36,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
-        appBar: const CustomAppbar(text: Strings.appName, counter: 0),
+        appBar: CustomAppbar(
+          text: AppLocalizations.of(context)!.helloWorldWithName("Marco"),
+          counter: 0,
+        ),
         floatingActionButton: const FloatingActionButton(
           onPressed: generateDummyDishes,
           child: Icon(Icons.add),
@@ -62,17 +65,17 @@ class _HomePageScreenState extends State<HomePageScreen> {
             setState(() {});
           }
         },
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-            activeIcon: Icon(Icons.home_outlined),
+            icon: const Icon(Icons.home),
+            label: AppLocalizations.of(context)!.helloWorld,
+            activeIcon: const Icon(Icons.home_outlined),
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.restaurant),
             label: "Ristorante",
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: "Account",
           ),
