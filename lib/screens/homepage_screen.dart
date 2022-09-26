@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:restapp_automa/screens/bt_screen.dart';
 import 'package:restapp_automa/utils/helper_function.dart';
 import 'package:restapp_automa/widgets/account_widget.dart';
 import 'package:restapp_automa/widgets/custom_app_bar.dart';
@@ -23,9 +27,30 @@ class _HomePageScreenState extends State<HomePageScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _selectedIndex = PageIndexes.Home;
 
+  bool _errorOnConnection = false;
+
   @override
   void initState() {
     super.initState();
+    _autoConnect();
+  }
+
+  void _autoConnect() async {
+    List<BluetoothDevice> btDevices =
+        await FlutterBluePlus.instance.connectedDevices;
+    if (btDevices.isNotEmpty) {
+      try {
+        await btDevices.first.connect(timeout: const Duration(seconds: 4));
+      } on TimeoutException {
+        setState(() {
+          _errorOnConnection = true;
+        });
+      } on Exception {
+        setState(() {
+          _errorOnConnection = true;
+        });
+      }
+    }
   }
 
   @override
@@ -117,10 +142,22 @@ class _Drawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Drawer(
         child: Column(
-          children: const [
-            DrawerHeader(child: Text("Ciao")),
-            Divider(color: Colors.red),
-            ListTile(title: Text("Title")),
+          children: [
+            const DrawerHeader(child: Text("Ciao")),
+            const Divider(color: Colors.red),
+            ListTile(
+              title: const Text("Bluetooth"),
+              onTap: () async {
+                Widget child = (await FlutterBluePlus.instance.isAvailable)
+                    ? const FindDevicesScreen()
+                    : const BluetoothOffScreen();
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => child,
+                  ),
+                );
+              },
+            ),
           ],
         ),
       );

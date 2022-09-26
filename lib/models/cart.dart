@@ -53,24 +53,25 @@ class Cart {
       );
 
   factory Cart.fromJson(Map<String, dynamic> json) => Cart(
-    id: json["id"],
-    productId: json["productId"],
-    productName: json["productName"],
-    initialPrice: json["initialPrice"],
-    productPrice: json["productPrice"],
-    quantity: json["quantity"],
-    unitTag: json["unitTag"],
-    image: json["image"],
-  );
+        id: json["id"],
+        productId: json["productId"],
+        productName: json["productName"],
+        initialPrice: json["initialPrice"],
+        productPrice: json["productPrice"],
+        quantity: json["quantity"],
+        unitTag: json["unitTag"],
+        image: json["image"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "productId": productId,
-    "productName": productName,
-    "initialPrice": initialPrice,
-    "productPrice": productPrice,
-    "quantity": quantity,
-    "unitTag": unitTag,
-    "image": image,
-  };
+        "id": id,
+        "productId": productId,
+        "productName": productName,
+        "initialPrice": initialPrice,
+        "productPrice": productPrice,
+        "quantity": quantity,
+        "unitTag": unitTag,
+        "image": image,
+      };
+
 }
