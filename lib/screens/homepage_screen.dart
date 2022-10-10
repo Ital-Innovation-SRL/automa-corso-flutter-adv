@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:restapp_automa/screens/bt_screen.dart';
+import 'package:restapp_automa/screens/google_maps_screen.dart';
 import 'package:restapp_automa/utils/helper_function.dart';
 import 'package:restapp_automa/widgets/account_widget.dart';
 import 'package:restapp_automa/widgets/custom_app_bar.dart';
@@ -157,6 +158,14 @@ class _Drawer extends StatelessWidget {
                   ),
                 );
               },
+            ),
+            ListTile(
+              title: const Text("Mappa"),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => GoogleMapsScreen(),
+                  ),
+                ),
             ),
           ],
         ),
